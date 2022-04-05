@@ -83,3 +83,15 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+Pods
+.vscode
+.DS_Store
+*.zip
+*.ipa
+*.xcworkspacedata
+
+
+node_modules/
+npm-debug.log
+yarn-error.log
