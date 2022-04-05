@@ -9,14 +9,22 @@
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
-window.customParseInt = function (num) {
-  if (!!num) {
+window.customParseInt = function (num, reg = 10) {
+  if (!isNaN(num)) {
+    if (num.includes('.')) {
+      num = num.split('.')[0];
+    }
     let i = 0;
     for (let k = num.length - 1; k >= 0; k--) {
-      console.log('ascii of num =' + num.charCodeAt(k));
-      let j = num.charCodeAt(k) - 48; //ascii code of 0 is 48
-      j = j * Math.pow(10, num.length - (k + 1));
-      i += j;
+      const isNegative = num.charCodeAt(k) == 45;
+      //As ascii code for - is 45
+      let j = isNegative ? 1 : num.charCodeAt(k) - 48; //ascii code of 0 is 48
+      j = j * Math.pow(reg, num.length - (k + 1));
+      if (isNegative) {
+        i *= -1;
+      } else {
+        i += j;
+      }
     }
 
     return i;
@@ -26,7 +34,7 @@ window.customParseInt = function (num) {
 };
 
 const App = () => {
-  const num = '123';
+  const num = '-1';
 
   console.log('original');
   console.log(parseInt(num));
